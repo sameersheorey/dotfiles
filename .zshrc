@@ -146,6 +146,11 @@ if [ -z "$TMUX" ] && [ -t 1 ]; then
   tmux attach-session -t default || tmux new-session -s default
 fi
 
+# Direnv hook for automatically modifying shell environment based on directory (safe: only if direnv exists)
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
